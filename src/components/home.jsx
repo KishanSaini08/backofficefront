@@ -69,6 +69,7 @@ import { useNavigate } from 'react-router-dom'
 import User from '../pages/Users.jsx'
 import TaskList from '../pages/Tasklist.jsx'
 import Tasks from '../pages/tasks.jsx'
+import "../styles/home.css"
 
 function Home() {
   const [currentUser, setCurrentUser] = useState("")
