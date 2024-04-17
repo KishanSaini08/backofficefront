@@ -10,31 +10,52 @@ function Tasks() {
     const [userData, setUserData] = useState([])
     const Navigate = useNavigate()
     const API = "https://backofficeback.onrender.com"
-    useEffect(() => {
-        firebase.auth().onAuthStateChanged((user) => {
-            if (user) {
-                onValue(ref(firebase.database()), snapshot => {
-                    const data = []
-                    snapshot.forEach((child) => {
-                        let shot = child.val()
-                        data.push({
-                            id: child.key,
-                            data: shot
-                        })
-                    })
-                    setTaskList(data)
-                })
-            }
-            else {
-                Navigate('/login')
-            }
-        })
+    // useEffect(() => {
+    //     firebase.auth().onAuthStateChanged((user) => {
+    //         if (user) {
+    //             onValue(ref(firebase.database()), snapshot => {
+    //                 const data = []
+    //                 snapshot.forEach((child) => {
+    //                     let shot = child.val()
+    //                     data.push({
+    //                         id: child.key,
+    //                         data: shot
+    //                     })
+    //                 })
+    //                 setTaskList(data)
+    //             })
+    //         }
+    //         else {
+    //             Navigate('/login')
+    //         }
+    //     })
 
-        axios.get(API+"/api/users").then((res) => {
-            setUserData(res.data)
-        }).catch((err) => {
-            console.log(err)
-        })
+    //     axios.get(API+"/api/users").then((res) => {
+    //         setUserData(res.data)
+    //     }).catch((err) => {
+    //         console.log(err)
+    //     })
+    // }, [])
+
+    useEffect(() => {
+        if(localStorage.getItem("auth")){
+            onValue(ref(firebase.database()), snapshot => {
+                const data = []
+                snapshot.forEach((child) => {
+                    let shot = child.val()
+                    data.push({
+                        id: child.key,
+                        data: shot
+                    })
+                })
+                setTaskList(data)
+            })
+            axios.get(API+"/api/users").then((res) => {
+                setUserData(res.data)
+            }).catch((err) => {
+                console.log(err)
+            })
+        }
     }, [])
     return (
         <div className='userData'>
