@@ -32,9 +32,7 @@ function User(user) {
         <tbody>
 
             {
-                userData.map((user , index)=>{
-                  return
-                    
+                userData.map((user , index)=>{        
                     return(
                         <tr key={index}>
                             <td>{user.uid}</td>
